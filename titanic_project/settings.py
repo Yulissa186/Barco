@@ -4,7 +4,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = '123456789'
-DEBUG = True
+DEBUG = False
 
 # Leer ALLOWED_HOSTS desde variable de entorno o usar default
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost,.ngrok-free.dev").split(",")
