@@ -3,22 +3,27 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = '123456789'
-DEBUG = False
+# SECRET_KEY
+SECRET_KEY = os.environ.get('SECRET_KEY', '123456789')  # usar variable de entorno en producción
 
-# Leer ALLOWED_HOSTS desde variable de entorno o usar default
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost,.ngrok-free.dev").split(",")
+# DEBUG
+DEBUG = False  # Siempre False en Render
 
+# Hosts permitidos
+ALLOWED_HOSTS = ['analisisdat.onrender.com']
+
+# Apps
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',  # necesario para DRF
-    'django.contrib.messages',  # opcional pero recomendable
+    'django.contrib.sessions',
+    'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
     'titanic_app',
 ]
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -28,8 +33,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
+# URL principal
 ROOT_URLCONF = 'titanic_project.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -46,8 +53,10 @@ TEMPLATES = [
     },
 ]
 
+# WSGI
 WSGI_APPLICATION = 'titanic_project.wsgi.application'
 
+# Base de datos SQLite
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -55,8 +64,19 @@ DATABASES = {
     }
 }
 
-# Configuración de static files
+# Archivos estáticos
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # necesario para collectstatic en Render
 STATICFILES_DIRS = [
     BASE_DIR / 'titanic_app' / 'static',
 ]
+
+# Archivos media (opcional)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Zona horaria
+LANGUAGE_CODE = 'es-mx'
+TIME_ZONE = 'America/Mexico_City'
+USE_I18N = True
+USE_TZ = True
