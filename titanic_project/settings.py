@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '123456789')  # usar variable de entor
 DEBUG = False  # Siempre False en Render
 
 # Hosts permitidos
-ALLOWED_HOSTS = ['analisisdat.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 # Apps
 INSTALLED_APPS = [
